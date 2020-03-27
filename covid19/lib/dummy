@@ -432,3 +432,258 @@ void createLineChart() {
     chart.update();
   });
 }
+
+
+
+Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
+            TextField(
+              // controller: editingController,
+              decoration: InputDecoration(
+                  labelText: "Search",
+                  hintText: "Search",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+              onChanged: (value) {
+                        // filterSearchResults(value);
+
+                        setState(() {
+                          data1 = data
+                              .where((u) => u.country
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()))
+                              .toList();
+                        });
+                      },
+            ),
+            Padding(padding: EdgeInsets.fromLTRB(0, 20, 0, 0)),
+            Expanded(
+              child: ListView.builder(
+                itemCount: widget.data.length,
+                itemBuilder: (context, index) {
+                  Padding(padding: EdgeInsets.fromLTRB(8, 5, 8, 5));
+                  return GestureDetector(
+                    onTap: () {
+                      var url = "https://corona.lmao.ninja/historical";
+                      HistoryData hd = HistoryData(url);
+                      hd.getData().then((val) {
+                        var data = val;
+
+                        print("country data: $data");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Map(
+                              data: data,
+                            ),
+                          ),
+                        );
+                      });
+                    },
+                    child: Card(
+                      margin: EdgeInsets.only(top: 10),
+                      elevation: 10,
+                      borderOnForeground: true,
+                      child: Container(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 5),
+                            ),
+                            Container(
+                              color: Colors.grey,
+                              height: 2,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Image(
+                                      height: 50,
+                                      width: 50,
+                                      image: NetworkImage(
+                                        widget.data[index]['countryInfo']
+                                            ['flag'],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(width: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      widget.data[index]['country'],
+                                      style: TextStyle(
+                                          fontSize: 30, color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(top: 10),
+                            // ),
+                            Container(
+                              color: Colors.grey,
+                              height: 2,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 10),
+                            ),
+                            Table(
+                              border: TableBorder.all(
+                                  width: 1.0, color: Colors.black),
+                              children: [
+                                TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("Cases",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                            widget.data[index]['cases']
+                                                .toString(),
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("Deaths",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              widget.data[index]['deaths']
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 20)),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("Active",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              widget.data[index]['active']
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 20)),
+                                        ],
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("Recovered",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              widget.data[index]['recovered']
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 20)),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("Critical",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              widget.data[index]['critical']
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 20)),
+                                        ],
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("TodayCases",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              widget.data[index]['todayCases']
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 20)),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("TodayDeaths",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              widget.data[index]['todayDeaths']
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 20)),
+                                        ],
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Text("PerOneMillion",
+                                              style: TextStyle(fontSize: 20)),
+                                          Text(
+                                              widget.data[index]
+                                                      ['casesPerOneMillion']
+                                                  .toString(),
+                                              style: TextStyle(fontSize: 20)),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),

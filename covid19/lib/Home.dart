@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_charts/multi_charts.dart';
 import 'gobal.dart';
-import 'country.dart';
+// import 'country.dart';
 import 'map.dart';
-// import 'test.dart';
+import 'test.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -292,12 +292,12 @@ class _HomeState extends State<Home> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => Country(
-                              data: countryWiseData,
-                              dates: dates,
-                              cases: cases,
-                              countries: countries,
-                              allHData: allHData,
-                            ),
+                                // data: countryWiseData,
+                                // dates: dates,
+                                // cases: cases,
+                                // countries: countries,
+                                // allHData: allHData,
+                                ),
                           ),
                         ),
                       },

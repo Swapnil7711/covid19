@@ -1,3 +1,4 @@
+import 'package:covid19/widget/tableview.dart';
 import 'package:flutter/material.dart';
 import 'map.dart';
 import 'history_data.dart';
